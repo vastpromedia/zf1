@@ -112,9 +112,10 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
      *
      * @param  Zend_Controller_Response_Abstract $other String to examine
      * @param  null|string Assertion type
+     * @param  bool $returnResult Whether to return a result or throw an exception
      * @return bool
      */
-    public function evaluate($other, $assertType = null)
+    public function evaluate($other, $assertType = null, $returnResult = FALSE)
     {
         if (!$other instanceof Zend_Controller_Response_Abstract) {
             // require_once 'Zend/Test/PHPUnit/Constraint/Exception.php';
@@ -188,11 +189,11 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
      * @see    PHPUnit_Framework_Constraint for implementation details
      * @param  mixed $other
      * @param  string $description Additional message to display
-     * @param  bool $not
+     * @param  PHPUnit_Framework_ComparisonFailure $comparisonFailure
      * @return void
      * @throws PHPUnit_Framework_ExpectationFailedException
      */
-    public function fail($other, $description, $not = false)
+    public function fail($other, $description, PHPUnit_Framework_ComparisonFailure $comparisonFailure = NULL)
     {
         // require_once 'Zend/Test/PHPUnit/Constraint/Exception.php';
         switch ($this->_assertType) {
@@ -228,14 +229,14 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
                 $failure = sprintf($failure, $this->_header, $this->_match);
                 break;
             default:
-                throw new Zend_Test_PHPUnit_Constraint_Exception('Invalid assertion type ' . __FUNCTION__);
+                throw new Zend_Test_PHPUnit_Constraint_Exception('Invalid assertion type ' . __FUNCTION__, $comparisonFailure);
         }
 
         if (!empty($description)) {
             $failure = $description . "\n" . $failure;
         }
 
-        throw new Zend_Test_PHPUnit_Constraint_Exception($failure);
+        throw new Zend_Test_PHPUnit_Constraint_Exception($failure, $comparisonFailure);
     }
 
     /**

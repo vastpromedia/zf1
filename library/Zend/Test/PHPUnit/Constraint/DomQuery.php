@@ -137,9 +137,10 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      *
      * @param  string $other String to examine
      * @param  null|string Assertion type
+     * @param  bool $returnResult Whether to return a result or throw an exception
      * @return bool
      */
-    public function evaluate($other, $assertType = null)
+    public function evaluate($other, $assertType = null, $returnResult = FALSE)
     {
         if (strstr($assertType, 'Not')) {
             $this->setNegate(true);
@@ -209,11 +210,11 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      * @see    PHPUnit_Framework_Constraint for implementation details
      * @param  mixed $other CSS selector path
      * @param  string $description
-     * @param  bool $not
+     * @param  PHPUnit_Framework_ComparisonFailure $comparisonFailure
      * @return void
      * @throws PHPUnit_Framework_ExpectationFailedException
      */
-    public function fail($other, $description, $not = false)
+    public function fail($other, $description, PHPUnit_Framework_ComparisonFailure $comparisonFailure = NULL)
     {
         // require_once 'Zend/Test/PHPUnit/Constraint/Exception.php';
         switch ($this->_assertType) {
@@ -260,7 +261,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
             $failure = $description . "\n" . $failure;
         }
 
-        throw new Zend_Test_PHPUnit_Constraint_Exception($failure);
+        throw new Zend_Test_PHPUnit_Constraint_Exception($failure, $comparisonFailure);
     }
 
     /**
