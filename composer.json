@@ -1,0 +1,27 @@
+{
+    "name": "vastpromedia/zendframework1",
+    "description": "Zend Framework 1 minimal with require_once() calls commented out for better performance with an autoloader. Also modified to be quasi-compatible with PHPUnit > 3.6.",
+    "type": "library",
+    "keywords": [
+        "zend",
+        "zend framework",
+        "zf",
+        "zf1"
+    ],
+    "homepage": "http://github.com/vastpromedia/zf1",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.2.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "Zend_": "library/"
+        }
+    },
+    "include-path": [
+        "library/"
+    ],
+    "config": {
+        "bin-dir": "bin"
+    }
+}
