@@ -618,7 +618,7 @@ abstract class Zend_File_Transfer_Adapter_Abstract
     {
         $check = $this->_getFiles($files, false, true);
         if (empty($check)) {
-            return false;
+            return $this->_options['ignoreNoFile'];
         }
 
         $translator      = $this->getTranslator();
